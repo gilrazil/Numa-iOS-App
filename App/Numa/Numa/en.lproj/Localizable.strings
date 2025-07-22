@@ -1,0 +1,71 @@
+/* 
+   Localizable.strings (English)
+   Numa
+
+   All user-facing text except splash screen tagline
+*/
+
+// ContentView
+"hello_world" = "Hello, world!";
+
+// Onboarding - Goal Selection
+"goal_selection_title" = "What's your goal?";
+"goal_selection_subtitle" = "Choose your primary weight goal to get personalized meal analysis";
+"goal_lose_weight" = "Lose Weight";
+"goal_maintain_weight" = "Maintain Weight";
+"goal_gain_weight" = "Gain Weight";
+"goal_lose_description" = "Reduce body weight gradually";
+"goal_maintain_description" = "Keep current weight stable";
+"goal_gain_description" = "Increase body weight healthily";
+"continue_button" = "Continue";
+
+// Onboarding - Personal Info
+"personal_info_title" = "Tell us about yourself";
+"personal_info_subtitle" = "This helps us provide accurate nutritional recommendations";
+"field_current_weight" = "Current Weight (kg)";
+"field_target_weight" = "Target Weight (kg)";
+"field_height" = "Height (cm)";
+"field_age" = "Age";
+"field_gender" = "Gender";
+"gender_male" = "Male";
+"gender_female" = "Female";
+"placeholder_current_weight" = "Enter current weight";
+"placeholder_target_weight" = "Enter target weight";
+"placeholder_height" = "Enter your height";
+"placeholder_age" = "Enter your age";
+
+// Onboarding - Activity Level
+"activity_level_title" = "How active are you?";
+"activity_level_subtitle" = "This helps us calculate your daily calorie needs accurately";
+"activity_sedentary" = "Sedentary";
+"activity_light" = "Light";
+"activity_moderate" = "Moderate";
+"activity_active" = "Active";
+"activity_very_active" = "Very Active";
+"activity_sedentary_description" = "Little or no exercise";
+"activity_light_description" = "Light exercise 1-3 days/week";
+"activity_moderate_description" = "Moderate exercise 3-5 days/week";
+"activity_active_description" = "Hard exercise 6-7 days/week";
+"activity_very_active_description" = "Physical job or intense training";
+"get_started_button" = "Get Started";
+
+// General UI elements (for future use)
+"app_name" = "Numa";
+"loading" = "Loading...";
+"error" = "Error";
+"ok" = "OK";
+"cancel" = "Cancel";
+"save" = "Save";
+"delete" = "Delete";
+"edit" = "Edit";
+"done" = "Done";
+
+// Health-related terms (for future features)
+"health" = "Health";
+"profile" = "Profile";
+"settings" = "Settings";
+"medical_records" = "Medical Records";
+"appointments" = "Appointments";
+"medications" = "Medications";
+"symptoms" = "Symptoms";
+"dashboard" = "Dashboard"; 

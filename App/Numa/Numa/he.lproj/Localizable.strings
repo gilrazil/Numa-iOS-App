@@ -1,0 +1,71 @@
+/* 
+   Localizable.strings (Hebrew)
+   Numa
+
+   All user-facing text except splash screen tagline
+*/
+
+// ContentView
+"hello_world" = "שלום, עולם!";
+
+// Onboarding - Goal Selection
+"goal_selection_title" = "מה המטרה שלך?";
+"goal_selection_subtitle" = "בחר את מטרת המשקל העיקרית שלך כדי לקבל ניתוח מזון מותאם אישית";
+"goal_lose_weight" = "ירידה במשקל";
+"goal_maintain_weight" = "שמירה על המשקל";
+"goal_gain_weight" = "עלייה במשקל";
+"goal_lose_description" = "הפחתת משקל הגוף בהדרגה";
+"goal_maintain_description" = "שמירה על המשקל הנוכחי";
+"goal_gain_description" = "הגדלת משקל הגוף בצורה בריאה";
+"continue_button" = "המשך";
+
+// Onboarding - Personal Info
+"personal_info_title" = "ספר לנו עליך";
+"personal_info_subtitle" = "זה עוזר לנו לספק המלצות תזונה מדויקות";
+"field_current_weight" = "משקל נוכחי (ק\"ג)";
+"field_target_weight" = "משקל יעד (ק\"ג)";
+"field_height" = "גובה (ס\"מ)";
+"field_age" = "גיל";
+"field_gender" = "מין";
+"gender_male" = "זכר";
+"gender_female" = "נקבה";
+"placeholder_current_weight" = "הכנס משקל נוכחי";
+"placeholder_target_weight" = "הכנס משקל יעד";
+"placeholder_height" = "הכנס את הגובה שלך";
+"placeholder_age" = "הכנס את הגיל שלך";
+
+// Onboarding - Activity Level
+"activity_level_title" = "כמה אתה פעיל?";
+"activity_level_subtitle" = "זה עוזר לנו לחשב את הצרכים הקלוריים היומיים שלך בדיוק";
+"activity_sedentary" = "יושבני";
+"activity_light" = "קל";
+"activity_moderate" = "בינוני";
+"activity_active" = "פעיל";
+"activity_very_active" = "פעיל מאוד";
+"activity_sedentary_description" = "מעט או ללא פעילות גופנית";
+"activity_light_description" = "פעילות קלה 1-3 ימים בשבוע";
+"activity_moderate_description" = "פעילות בינונית 3-5 ימים בשבוע";
+"activity_active_description" = "פעילות קשה 6-7 ימים בשבוע";
+"activity_very_active_description" = "עבודה פיזית או אימונים אינטנסיביים";
+"get_started_button" = "בואו נתחיל";
+
+// General UI elements (for future use)
+"app_name" = "נומא";
+"loading" = "טוען...";
+"error" = "שגיאה";
+"ok" = "אישור";
+"cancel" = "ביטול";
+"save" = "שמור";
+"delete" = "מחק";
+"edit" = "ערוך";
+"done" = "סיום";
+
+// Health-related terms (for future features)
+"health" = "בריאות";
+"profile" = "פרופיל";
+"settings" = "הגדרות";
+"medical_records" = "רישומים רפואיים";
+"appointments" = "תורים";
+"medications" = "תרופות";
+"symptoms" = "תסמינים";
+"dashboard" = "לוח בקרה"; 

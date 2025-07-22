@@ -1,0 +1,19 @@
+{
+  "project_name": "Numa",
+  "platform": "iOS",
+  "language": "Swift",
+  "ui_framework": "SwiftUI",
+  "uses_cursor": true,
+"storage": "Firebase",
+  "ai_services": ["OpenAI GPT-4o", "Replicate API"],
+  "deployment": "TestFlight",
+  "mvp_features": [
+    "Onboarding",
+    "Meal photo input",
+    "Food analysis (image + prompt)",
+    "Nutrition tip",
+    "History for 14 days"
+  ],
+  "no_cross_platform": true,
+  "editor_notes": "All documentation is stored in Tutorial_for_iOS_application.zip and should be used as source of truth for scaffolding or answering questions."
+}
