@@ -41,9 +41,6 @@ struct SplashScreen: View {
             .background(Color("NumaPurple"))
             .ignoresSafeArea(.all)
             .onAppear {
-                // TEMPORARY: Reset onboarding for testing
-                UserDefaults.standard.removeObject(forKey: "onboarding_complete")
-                
                 // Check onboarding status
                 let isOnboardingComplete = UserDefaults.standard.bool(forKey: "onboarding_complete")
                 shouldShowOnboarding = !isOnboardingComplete
