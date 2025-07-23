@@ -266,7 +266,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Fix Firebase dSYM Files for App Store Upload\n\"$SRCROOT/../Scripts/fix_firebase_dsyms.sh\"\n";
+			shellScript = "# Fix Firebase dSYM Files for App Store Upload\n\"$SRCROOT/../../Scripts/fix_firebase_dsyms.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

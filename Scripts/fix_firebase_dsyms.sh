@@ -6,10 +6,19 @@
 set -e
 
 echo "🔥 Firebase dSYM Fix Script Started"
+echo "📋 Build Configuration: ${CONFIGURATION}"
+echo "📋 Build Action: ${ACTION}"
+echo "📋 Current Directory: $(pwd)"
 
 # Only run for Release builds and Archive action
-if [ "${CONFIGURATION}" != "Release" ] || [ "${ACTION}" != "archive" ]; then
-    echo "ℹ️  Skipping dSYM fix - not a Release archive build"
+if [ "${CONFIGURATION}" != "Release" ]; then
+    echo "ℹ️  Skipping dSYM fix - not a Release build (current: ${CONFIGURATION})"
+    exit 0
+fi
+
+# For regular Release builds (not archive), still skip to avoid build issues
+if [ "${ACTION}" != "archive" ] && [ "${ACTION}" != "" ]; then
+    echo "ℹ️  Skipping dSYM fix - not an archive action (current: ${ACTION})"
     exit 0
 fi
 
@@ -28,6 +37,17 @@ DSYM_OUTPUT_DIR="${DWARF_DSYM_FOLDER_PATH}"
 
 echo "📁 Built products dir: ${BUILT_PRODUCTS_DIR}"
 echo "📁 dSYM output dir: ${DSYM_OUTPUT_DIR}"
+
+# Verify required directories exist
+if [ -z "${BUILT_PRODUCTS_DIR}" ] || [ -z "${DSYM_OUTPUT_DIR}" ]; then
+    echo "⚠️ Required build directories not set, skipping dSYM fix"
+    exit 0
+fi
+
+if [ ! -d "${BUILT_PRODUCTS_DIR}" ]; then
+    echo "⚠️ Built products directory does not exist: ${BUILT_PRODUCTS_DIR}"
+    exit 0
+fi
 
 # Function to find and copy dSYM files
 copy_dsym_if_exists() {
