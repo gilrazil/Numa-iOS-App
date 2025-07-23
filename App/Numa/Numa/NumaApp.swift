@@ -1,4 +1,4 @@
-import Firebase
+import FirebaseCore
 //  NumaApp.swift
 //  Numa
 //
