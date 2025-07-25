@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct GoalSelectionView: View {
+    @EnvironmentObject var userService: UserService
     @State private var selectedGoal: WeightGoal? = nil
     @State private var navigateToPersonalInfo = false
+    @State private var isSaving = false
     
     enum WeightGoal: String, CaseIterable {
         case lose = "lose_weight"
@@ -79,22 +81,41 @@ struct GoalSelectionView: View {
                 
                 // Continue Button
                 Button(action: {
-                    // Save goal to UserDefaults with correct key
+                    // Save goal using UserService
                     if let selectedGoal = selectedGoal {
-                        UserDefaults.standard.set(selectedGoal.rawValue, forKey: "user_goal")
-                        navigateToPersonalInfo = true
+                        isSaving = true
+                        userService.saveOnboardingData(goal: selectedGoal.rawValue) { success in
+                            DispatchQueue.main.async {
+                                isSaving = false
+                                if success {
+                                    print("✅ Goal saved successfully: \(selectedGoal.rawValue)")
+                                    navigateToPersonalInfo = true
+                                } else {
+                                    print("❌ Failed to save goal")
+                                    // Still navigate to continue onboarding
+                                    navigateToPersonalInfo = true
+                                }
+                            }
+                        }
                     }
                 }) {
-                    Text(LocalizedStringKey("continue_button"))
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(selectedGoal != nil ? Color("NumaPurple") : Color(.systemGray4))
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                    HStack {
+                        if isSaving {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                .scaleEffect(0.8)
+                        }
+                        Text(LocalizedStringKey(isSaving ? "saving_button" : "continue_button"))
+                    }
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background((selectedGoal != nil && !isSaving) ? Color("NumaPurple") : Color(.systemGray4))
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
-                .disabled(selectedGoal == nil)
+                .disabled(selectedGoal == nil || isSaving)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 40)
             }

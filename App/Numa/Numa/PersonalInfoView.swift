@@ -1,12 +1,14 @@
 import SwiftUI
 
 struct PersonalInfoView: View {
+    @EnvironmentObject var userService: UserService
     @State private var currentWeight = ""
     @State private var targetWeight = ""
     @State private var height = ""
     @State private var age = ""
     @State private var selectedGender: Gender = .male
     @State private var navigateToActivityLevel = false
+    @State private var isSaving = false
     
     enum Gender: String, CaseIterable {
         case male = "male"
@@ -122,18 +124,24 @@ struct PersonalInfoView: View {
                 // Continue Button - Always Visible
                 Button(action: {
                     savePersonalInfo()
-                    navigateToActivityLevel = true
                 }) {
-                    Text(LocalizedStringKey("continue_button"))
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(isFormValid ? Color("NumaPurple") : Color(.systemGray4))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                    HStack {
+                        if isSaving {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                .scaleEffect(0.8)
+                        }
+                        Text(LocalizedStringKey(isSaving ? "saving_button" : "continue_button"))
+                    }
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .background((isFormValid && !isSaving) ? Color("NumaPurple") : Color(.systemGray4))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
-                .disabled(!isFormValid)
+                .disabled(!isFormValid || isSaving)
                 .padding(.horizontal, 20)
                 .padding(.bottom, max(20, geometry.safeAreaInsets.bottom + 10))
             }
@@ -149,11 +157,27 @@ struct PersonalInfoView: View {
     }
     
     private func savePersonalInfo() {
-        UserDefaults.standard.set(Double(currentWeight) ?? 0.0, forKey: "user_weight_current")
-        UserDefaults.standard.set(Double(targetWeight) ?? 0.0, forKey: "user_weight_target")
-        UserDefaults.standard.set(Int(height) ?? 0, forKey: "user_height")
-        UserDefaults.standard.set(Int(age) ?? 0, forKey: "user_age")
-        UserDefaults.standard.set(selectedGender.rawValue, forKey: "user_gender")
+        isSaving = true
+        
+        userService.saveOnboardingData(
+            currentWeight: Double(currentWeight) ?? 0.0,
+            targetWeight: Double(targetWeight) ?? 0.0,
+            height: Int(height) ?? 0,
+            age: Int(age) ?? 0,
+            gender: selectedGender.rawValue
+        ) { [self] success in
+            DispatchQueue.main.async {
+                isSaving = false
+                if success {
+                    print("✅ Personal info saved successfully")
+                    navigateToActivityLevel = true
+                } else {
+                    print("❌ Failed to save personal info")
+                    // Still navigate to continue onboarding
+                    navigateToActivityLevel = true
+                }
+            }
+        }
     }
     
     private func hideKeyboard() {

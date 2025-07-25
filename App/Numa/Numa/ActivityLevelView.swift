@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct ActivityLevelView: View {
+    @EnvironmentObject var userService: UserService
     @State private var selectedActivityLevel: ActivityLevel? = nil
     @State private var navigateToContent = false
+    @State private var isSaving = false
     
     enum ActivityLevel: String, CaseIterable {
         case sedentary = "sedentary"
@@ -80,21 +82,26 @@ struct ActivityLevelView: View {
                 // Get Started Button
                 Button(action: {
                     if let selectedActivityLevel = selectedActivityLevel {
-                        saveActivityLevel(selectedActivityLevel)
-                        markOnboardingComplete()
-                        navigateToContent = true
+                        completeOnboarding(with: selectedActivityLevel)
                     }
                 }) {
-                    Text(LocalizedStringKey("get_started_button"))
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(selectedActivityLevel != nil ? Color("NumaPurple") : Color(.systemGray4))
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                    HStack {
+                        if isSaving {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                .scaleEffect(0.8)
+                        }
+                        Text(LocalizedStringKey(isSaving ? "completing_onboarding_button" : "get_started_button"))
+                    }
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background((selectedActivityLevel != nil && !isSaving) ? Color("NumaPurple") : Color(.systemGray4))
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
-                .disabled(selectedActivityLevel == nil)
+                .disabled(selectedActivityLevel == nil || isSaving)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 40)
             }
@@ -107,12 +114,42 @@ struct ActivityLevelView: View {
         }
     }
     
-    private func saveActivityLevel(_ level: ActivityLevel) {
-        UserDefaults.standard.set(level.rawValue, forKey: "user_activity_level")
-    }
-    
-    private func markOnboardingComplete() {
-        UserDefaults.standard.set(true, forKey: "onboarding_complete")
+    private func completeOnboarding(with activityLevel: ActivityLevel) {
+        isSaving = true
+        
+        // First save activity level
+        userService.saveOnboardingData(activityLevel: activityLevel.rawValue) { [self] success in
+            if success {
+                // Then mark onboarding as complete
+                userService.completeOnboarding { [self] success in
+                    DispatchQueue.main.async {
+                        isSaving = false
+                        if success {
+                            print("✅ Onboarding completed successfully!")
+                            // Verify all data was saved
+                            let verification = userService.verifyOnboardingData()
+                            if verification.isComplete {
+                                print("✅ All onboarding data verified complete")
+                            } else {
+                                print("⚠️ Missing onboarding data: \(verification.missingFields.joined(separator: ", "))")
+                            }
+                            navigateToContent = true
+                        } else {
+                            print("❌ Failed to complete onboarding")
+                            // Still navigate to continue
+                            navigateToContent = true
+                        }
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    isSaving = false
+                    print("❌ Failed to save activity level")
+                    // Still navigate to continue
+                    navigateToContent = true
+                }
+            }
+        }
     }
 }
 

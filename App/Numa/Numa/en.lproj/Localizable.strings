@@ -68,4 +68,8 @@
 "appointments" = "Appointments";
 "medications" = "Medications";
 "symptoms" = "Symptoms";
-"dashboard" = "Dashboard"; 
+"dashboard" = "Dashboard";
+
+// Loading states for onboarding
+"saving_button" = "Saving...";
+"completing_onboarding_button" = "Completing..."; 

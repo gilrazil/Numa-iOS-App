@@ -68,4 +68,8 @@
 "appointments" = "תורים";
 "medications" = "תרופות";
 "symptoms" = "תסמינים";
-"dashboard" = "לוח בקרה"; 
+"dashboard" = "לוח בקרה";
+
+// Loading states for onboarding
+"saving_button" = "שומר...";
+"completing_onboarding_button" = "משלים..."; 
