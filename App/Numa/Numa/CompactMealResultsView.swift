@@ -17,13 +17,13 @@ struct CompactMealResultsView: View {
                     Button("Close") {
                         dismiss()
                     }
+                    .font(.system(size: 17, weight: .medium))
                     .foregroundColor(Color("NumaPurple"))
                     
                     Spacer()
                     
                     Text("Meal Analysis")
-                        .font(.headline)
-                        .fontWeight(.semibold)
+                        .font(.system(size: 18, weight: .semibold))
                     
                     Spacer()
                     
@@ -31,6 +31,7 @@ struct CompactMealResultsView: View {
                     Button("Close") {
                         dismiss()
                     }
+                    .font(.system(size: 17, weight: .medium))
                     .opacity(0)
                 }
                 .padding(.horizontal, 20)
@@ -47,39 +48,37 @@ struct CompactMealResultsView: View {
                             .frame(width: geometry.size.width * 0.35, height: geometry.size.width * 0.35)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                         
-                        // Score and Nutrition Overview
-                        VStack(spacing: 8) {
-                            // Overall Score
-                            VStack(spacing: 4) {
-                                Text("\(calculateNutritionScore())")
-                                    .font(.system(size: 36, weight: .bold))
-                                    .foregroundColor(scoreColor())
-                                
-                                Text("Nutrition Score")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                            .padding()
-                            .background(
-                                Circle()
-                                    .fill(scoreColor().opacity(0.1))
-                                    .overlay(
-                                        Circle()
-                                            .stroke(scoreColor(), lineWidth: 2)
-                                    )
-                            )
+                        // Score Display Only
+                        VStack(spacing: 4) {
+                            Text("\(calculateNutritionScore())")
+                                .font(.system(size: 42, weight: .bold))
+                                .foregroundColor(scoreColor())
                             
-                            // Quick calories
-                            Text("\(analysis.estimatedCalories) cal")
-                                .font(.headline)
-                                .fontWeight(.medium)
-                                .foregroundColor(.orange)
+                            Text("Nutrition Score")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.secondary)
                         }
+                        .padding()
+                        .background(
+                            Circle()
+                                .fill(scoreColor().opacity(0.1))
+                                .overlay(
+                                    Circle()
+                                        .stroke(scoreColor(), lineWidth: 2)
+                                )
+                        )
                     }
                     .padding(.horizontal, 20)
                     
-                    // Macros Row - Compact horizontal layout
-                    HStack(spacing: 12) {
+                    // Nutrition Row - Calories and Macros together
+                    HStack(spacing: 8) {
+                        MacroCompactCard(
+                            title: "Calories",
+                            value: "\(analysis.estimatedCalories)",
+                            color: .orange,
+                            geometry: geometry
+                        )
+                        
                         MacroCompactCard(
                             title: "Protein",
                             value: "\(Int(analysis.macros.protein))g",
@@ -107,48 +106,48 @@ struct CompactMealResultsView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
                             Image(systemName: "list.bullet")
+                                .font(.system(size: 16))
                                 .foregroundColor(Color("NumaPurple"))
                             Text("Ingredients")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
+                                .font(.system(size: 16, weight: .semibold))
                             Spacer()
                         }
                         
                         // Ingredients as comma-separated text to save space
                         Text(analysis.ingredients.prefix(6).joined(separator: ", "))
-                            .font(.caption)
+                            .font(.system(size: 14))
                             .foregroundColor(.secondary)
                             .lineLimit(2)
                             .multilineTextAlignment(.leading)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
                     .background(
-                        RoundedRectangle(cornerRadius: 8)
+                        RoundedRectangle(cornerRadius: 10)
                             .fill(Color(.systemGray6))
                     )
                     .padding(.horizontal, 20)
                     
                     // Personalized Tip
-                    VStack(alignment: .leading, spacing: 6) {
+                    VStack(alignment: .leading, spacing: 8) {
                         HStack {
                             Image(systemName: "lightbulb.fill")
+                                .font(.system(size: 16))
                                 .foregroundColor(.yellow)
                             Text("Tip for You")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
+                                .font(.system(size: 16, weight: .semibold))
                         }
                         
                         Text(getPersonalizedTip())
-                            .font(.caption)
+                            .font(.system(size: 14))
                             .foregroundColor(.secondary)
                             .lineLimit(2)
                             .multilineTextAlignment(.leading)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
                     .background(
-                        RoundedRectangle(cornerRadius: 8)
+                        RoundedRectangle(cornerRadius: 10)
                             .fill(Color.yellow.opacity(0.1))
                     )
                     .padding(.horizontal, 20)
@@ -161,17 +160,17 @@ struct CompactMealResultsView: View {
                             if isSaving {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                    .scaleEffect(0.8)
+                                    .scaleEffect(0.9)
                             }
                             
                             Image(systemName: "bookmark.fill")
+                                .font(.system(size: 18))
                             Text(isSaving ? "Saving..." : "Save Meal")
+                                .font(.system(size: 18, weight: .semibold))
                         }
-                        .font(.headline)
-                        .fontWeight(.semibold)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
+                        .padding(.vertical, 18)
                         .background(
                             RoundedRectangle(cornerRadius: 14)
                                 .fill(isSaving ? Color.gray : Color("NumaPurple"))
@@ -295,15 +294,17 @@ struct MacroCompactCard: View {
     var body: some View {
         VStack(spacing: 4) {
             Text(value)
-                .font(.system(size: geometry.size.width * 0.04, weight: .bold))
+                .font(.system(size: 18, weight: .bold))
                 .foregroundColor(color)
+                .minimumScaleFactor(0.8)
             
             Text(title)
-                .font(.system(size: geometry.size.width * 0.025))
+                .font(.system(size: 12, weight: .medium))
                 .foregroundColor(.secondary)
+                .minimumScaleFactor(0.8)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 8)
+        .padding(.vertical, 10)
         .background(
             RoundedRectangle(cornerRadius: 8)
                 .fill(color.opacity(0.1))
