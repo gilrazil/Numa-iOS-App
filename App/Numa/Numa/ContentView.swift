@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var showingCamera = false
     @State private var selectedImage: UIImage?
     @State private var navigateToMealAnalysis = false
+    @State private var showingMealHistory = false
     @State private var showingPermissionAlert = false
     @State private var permissionAlertMessage = ""
     
@@ -74,6 +75,69 @@ struct ContentView: View {
                         }
                     }
                     .padding(.horizontal, 20)
+                    
+                    // Meal History Section
+                    VStack(spacing: 16) {
+                        VStack(spacing: 8) {
+                            Text(LocalizedStringKey("meal_history_section"))
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
+                            
+                            Text(LocalizedStringKey("view_past_analyses"))
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
+                        }
+                        
+                        // Meal History Button
+                        Button(action: {
+                            showingMealHistory = true
+                        }) {
+                            HStack(spacing: 16) {
+                                Image(systemName: "clock.arrow.circlepath")
+                                    .font(.title2)
+                                    .foregroundColor(.white)
+                                
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(LocalizedStringKey("meal_history_button"))
+                                        .font(.headline)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.white)
+                                    
+                                    Text(LocalizedStringKey("view_nutrition_insights"))
+                                        .font(.caption)
+                                        .foregroundColor(.white.opacity(0.8))
+                                }
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.body)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.white.opacity(0.7))
+                            }
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 16)
+                            .background(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [Color("NumaPurple"), Color("NumaPurple").opacity(0.8)],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                                    )
+                                    .shadow(color: Color("NumaPurple").opacity(0.3), radius: 8, x: 0, y: 4)
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(.white.opacity(0.2), lineWidth: 1)
+                            )
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
                     
                     // Data verification section (for development)
                     VStack(spacing: 12) {
@@ -149,6 +213,9 @@ struct ContentView: View {
                     navigateToMealAnalysis = true
                 }
             }
+        }
+        .sheet(isPresented: $showingMealHistory) {
+            MealHistoryView()
         }
         .alert(LocalizedStringKey("permission_required"), isPresented: $showingPermissionAlert) {
             Button(LocalizedStringKey("open_settings")) {

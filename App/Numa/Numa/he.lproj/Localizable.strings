@@ -131,4 +131,46 @@
 "analysis_error_image_too_large" = "התמונה גדולה מדי. אנא נסו עם תמונה קטנה יותר.";
 "analysis_error_timeout" = "הניתוח נגב. אנא נסו שוב.";
 "analysis_error_rate_limit" = "יותר מדי בקשות. אנא חכו רגע ונסו שוב.";
-"analysis_error_unknown" = "אירעה שגיאה לא צפויה"; 
+"analysis_error_unknown" = "אירעה שגיאה לא צפויה";
+
+// Meal History Navigation
+"meal_history_section" = "היסטוריית ארוחות";
+"view_past_analyses" = "צפו בניתוחי הארוחות הקודמות שלכם ותובנות תזונתיות";
+"meal_history_button" = "צפייה בהיסטוריית ארוחות";
+"view_nutrition_insights" = "עקבו אחר המסע התזונתי שלכם";
+
+// Meal History Screen
+"meal_history_title" = "היסטוריית ארוחות";
+"back_button" = "חזור";
+"refresh_button" = "רענן";
+"loading_meal_history" = "טוען את היסטוריית הארוחות שלכם...";
+
+// Empty State
+"no_meals_yet" = "עדיין לא נותחו ארוחות";
+"start_analyzing_meals" = "התחילו לצלם ולנתח את הארוחות שלכם כדי לראות אותן כאן";
+"meal_tracking_benefits" = "למה לעקוב אחר הארוחות?";
+"ai_nutritional_analysis" = "קבלו ניתוח תזונתי מבוסס בינה מלאכותית";
+"track_your_progress" = "עקבו אחר ההתקדמות התזונתית שלכם לאורך זמן";
+"reach_health_goals" = "הגיעו ליעדי הבריאות והרווחה שלכם";
+
+// Error State
+"failed_to_load_meals" = "נכשל בטעינת היסטוריית הארוחות";
+
+// Stats Header
+"your_meal_journey" = "המסע התזונתי שלכם";
+"nutrition_insights" = "תובנות תזונתיות מהיסטוריית הארוחות שלכם";
+"total_meals" = "סך הארוחות";
+"total_calories" = "סך הקלוריות";
+"avg_calories" = "ממוצע קלוריות";
+
+// Time References
+"just_now" = "כרגע";
+"minute_ago" = "לפני דקה";
+"minutes_ago" = "לפני %d דקות";
+"hour_ago" = "לפני שעה";
+"hours_ago" = "לפני %d שעות";
+"day_ago" = "לפני יום";
+"days_ago" = "לפני %d ימים";
+
+// Meal Card
+"and_more" = "+עוד"; 

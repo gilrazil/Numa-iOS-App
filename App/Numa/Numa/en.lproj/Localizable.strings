@@ -131,4 +131,46 @@
 "analysis_error_image_too_large" = "Image is too large. Please try with a smaller photo.";
 "analysis_error_timeout" = "Analysis timed out. Please try again.";
 "analysis_error_rate_limit" = "Too many requests. Please wait a moment and try again.";
-"analysis_error_unknown" = "An unexpected error occurred"; 
+"analysis_error_unknown" = "An unexpected error occurred";
+
+// Meal History Navigation
+"meal_history_section" = "Meal History";
+"view_past_analyses" = "View your past meal analyses and nutrition insights";
+"meal_history_button" = "View Meal History";
+"view_nutrition_insights" = "Track your nutrition journey";
+
+// Meal History Screen
+"meal_history_title" = "Meal History";
+"back_button" = "Back";
+"refresh_button" = "Refresh";
+"loading_meal_history" = "Loading your meal history...";
+
+// Empty State
+"no_meals_yet" = "No meals analyzed yet";
+"start_analyzing_meals" = "Start capturing and analyzing your meals to see them here";
+"meal_tracking_benefits" = "Why track your meals?";
+"ai_nutritional_analysis" = "Get AI-powered nutritional analysis";
+"track_your_progress" = "Track your nutrition progress over time";
+"reach_health_goals" = "Reach your health and wellness goals";
+
+// Error State
+"failed_to_load_meals" = "Failed to load meal history";
+
+// Stats Header
+"your_meal_journey" = "Your Meal Journey";
+"nutrition_insights" = "Nutrition insights from your meal history";
+"total_meals" = "Total Meals";
+"total_calories" = "Total Calories";
+"avg_calories" = "Avg Calories";
+
+// Time References
+"just_now" = "Just now";
+"minute_ago" = "1 minute ago";
+"minutes_ago" = "%d minutes ago";
+"hour_ago" = "1 hour ago";
+"hours_ago" = "%d hours ago";
+"day_ago" = "1 day ago";
+"days_ago" = "%d days ago";
+
+// Meal Card
+"and_more" = "+more"; 
