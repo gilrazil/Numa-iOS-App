@@ -20,78 +20,99 @@ struct MealAnalysisView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 24) {
-                    // Header
-                    VStack(spacing: 12) {
-                        Text(LocalizedStringKey("meal_analysis_title"))
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
-                        
-                        Text(LocalizedStringKey("meal_analysis_subtitle"))
-                            .font(.title3)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal)
+            // Use different layouts based on analysis state
+            Group {
+                switch analysisState {
+                case .completed:
+                    // For completed analysis, use full screen compact view
+                    if let analysis = mealAnalysis {
+                        CompactMealResultsView(
+                            mealImage: mealImage,
+                            analysis: analysis,
+                            isSaving: isSavingToFirebase,
+                            onSave: saveMealAndDismiss
+                        )
                     }
-                    .padding(.top, 20)
-                    
-                    // Meal Image Display
-                    VStack(spacing: 16) {
-                        Image(uiImage: mealImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 300)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
-                        
-                        Text(LocalizedStringKey("meal_photo_captured"))
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    .padding(.horizontal, 20)
-                    
-                    // Analysis Content
-                    Group {
-                        switch analysisState {
-                        case .initial:
-                            InitialAnalysisView {
-                                startAnalysis()
+                default:
+                    // For other states, use scrollable layout
+                    ScrollView {
+                        VStack(spacing: 24) {
+                            // Header
+                            VStack(spacing: 12) {
+                                Text(LocalizedStringKey("meal_analysis_title"))
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .multilineTextAlignment(.center)
+                                
+                                Text(LocalizedStringKey("meal_analysis_subtitle"))
+                                    .font(.title3)
+                                    .foregroundColor(.secondary)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal)
                             }
-                        case .analyzing:
-                            AnalyzingView()
-                        case .completed:
-                            if let analysis = mealAnalysis {
-                                CompletedAnalysisView(analysis: analysis, isSaving: isSavingToFirebase)
+                            .padding(.top, 20)
+                            
+                            // Meal Image Display
+                            VStack(spacing: 16) {
+                                Image(uiImage: mealImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 300)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                    .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+                                
+                                Text(LocalizedStringKey("meal_photo_captured"))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
                             }
-                        case .error:
-                            ErrorAnalysisView(errorMessage: errorMessage ?? "") {
-                                startAnalysis()
+                            .padding(.horizontal, 20)
+                            
+                            // Analysis Content
+                            Group {
+                                switch analysisState {
+                                case .initial:
+                                    InitialAnalysisView {
+                                        startAnalysis()
+                                    }
+                                case .analyzing:
+                                    AnalyzingView()
+                                case .error:
+                                    ErrorAnalysisView(errorMessage: errorMessage ?? "") {
+                                        startAnalysis()
+                                    }
+                                default:
+                                    EmptyView()
+                                }
+                            }
+                            .padding(.horizontal, 20)
+                            
+                            Spacer(minLength: 40)
+                            
+                            // Action Button (only for non-completed states)
+                            if analysisState != .completed {
+                                actionButton
+                                    .padding(.horizontal, 20)
+                                    .padding(.bottom, 40)
                             }
                         }
                     }
-                    .padding(.horizontal, 20)
-                    
-                    Spacer(minLength: 40)
-                    
-                    // Action Button
-                    actionButton
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, 40)
+                    .background(Color(.systemGroupedBackground))
                 }
             }
-            .background(Color(.systemGroupedBackground))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(LocalizedStringKey("cancel_button")) {
-                        dismiss()
+                // Only show toolbar for non-completed states (compact view has its own close button)
+                if analysisState != .completed {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(LocalizedStringKey("cancel_button")) {
+                            dismiss()
+                        }
+                        .foregroundColor(Color("NumaPurple"))
                     }
-                    .foregroundColor(Color("NumaPurple"))
                 }
             }
+            .navigationBarHidden(analysisState == .completed)
         }
         .onAppear {
             // Auto-start analysis when view appears
