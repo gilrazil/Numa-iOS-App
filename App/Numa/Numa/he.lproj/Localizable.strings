@@ -72,4 +72,27 @@
 
 // Loading states for onboarding
 "saving_button" = "שומר...";
-"completing_onboarding_button" = "משלים..."; 
+"completing_onboarding_button" = "משלים...";
+
+// Home Screen - Meal Photo Capture
+"welcome_home_title" = "ברוכים הבאים לנומה";
+"track_your_meals" = "עקבו אחר הארוחות שלכם והגיעו ליעדי הבריאות";
+"capture_meal_title" = "צלמו את הארוחה";
+"take_photo_button" = "צלמו תמונה";
+"take_photo_subtitle" = "השתמשו במצלמה כדי לצלם את הארוחה";
+"choose_photo_button" = "בחרו מהגלריה";
+"choose_photo_subtitle" = "בחרו תמונה מהגלריה שלכם";
+
+// Meal Analysis Screen
+"meal_analysis_title" = "ניתוח ארוחה";
+"meal_analysis_subtitle" = "אנחנו ננתח את הארוחה שלכם כדי לספק תובנות תזונתיות";
+"meal_photo_captured" = "תמונת הארוחה שלכם נשמרה";
+"preparing_analysis" = "מכין ניתוח";
+"analysis_coming_soon" = "תכונות ניתוח הארוחות יהיו זמינות בעדכון הבא. הישארו מעודכנים!";
+
+// Permissions
+"permission_required" = "נדרשת הרשאה";
+"camera_permission_message" = "נומה זקוקה לגישה למצלמה כדי לצלם את הארוחות שלכם. אנא אפשרו גישה למצלמה בהגדרות.";
+"photo_library_permission_message" = "נומה זקוקה לגישה לגלריית התמונות כדי לבחור תמונות ארוחות. אנא אפשרו גישה לתמונות בהגדרות.";
+"open_settings" = "פתח הגדרות";
+"cancel_button" = "ביטול"; 

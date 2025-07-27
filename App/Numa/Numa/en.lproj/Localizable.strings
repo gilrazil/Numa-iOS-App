@@ -72,4 +72,27 @@
 
 // Loading states for onboarding
 "saving_button" = "Saving...";
-"completing_onboarding_button" = "Completing..."; 
+"completing_onboarding_button" = "Completing...";
+
+// Home Screen - Meal Photo Capture
+"welcome_home_title" = "Welcome to Numa";
+"track_your_meals" = "Track your meals and reach your health goals";
+"capture_meal_title" = "Capture Your Meal";
+"take_photo_button" = "Take a Photo";
+"take_photo_subtitle" = "Use your camera to capture your meal";
+"choose_photo_button" = "Choose from Library";
+"choose_photo_subtitle" = "Select a photo from your gallery";
+
+// Meal Analysis Screen
+"meal_analysis_title" = "Meal Analysis";
+"meal_analysis_subtitle" = "We'll analyze your meal to provide nutritional insights";
+"meal_photo_captured" = "Your meal photo has been captured";
+"preparing_analysis" = "Preparing Analysis";
+"analysis_coming_soon" = "Meal analysis features will be available in the next update. Stay tuned!";
+
+// Permissions
+"permission_required" = "Permission Required";
+"camera_permission_message" = "Numa needs access to your camera to take photos of your meals. Please enable camera access in Settings.";
+"photo_library_permission_message" = "Numa needs access to your photo library to select meal photos. Please enable photo access in Settings.";
+"open_settings" = "Open Settings";
+"cancel_button" = "Cancel"; 
