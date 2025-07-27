@@ -17,13 +17,13 @@ struct CompactMealResultsView: View {
                     Button("Close") {
                         dismiss()
                     }
-                    .font(.system(size: 17, weight: .medium))
+                    .font(.system(size: 19, weight: .medium))
                     .foregroundColor(Color("NumaPurple"))
                     
                     Spacer()
                     
                     Text("Meal Analysis")
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(size: 20, weight: .semibold))
                     
                     Spacer()
                     
@@ -31,11 +31,11 @@ struct CompactMealResultsView: View {
                     Button("Close") {
                         dismiss()
                     }
-                    .font(.system(size: 17, weight: .medium))
+                    .font(.system(size: 19, weight: .medium))
                     .opacity(0)
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 10)
+                .padding(.top, 12)
                 
                 // Main content - using available height efficiently
                 VStack(spacing: geometry.size.height * 0.015) {
@@ -48,24 +48,46 @@ struct CompactMealResultsView: View {
                             .frame(width: geometry.size.width * 0.35, height: geometry.size.width * 0.35)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                         
-                        // Score Display Only
-                        VStack(spacing: 4) {
+                        // Enhanced Score Display
+                        VStack(spacing: 6) {
                             Text("\(calculateNutritionScore())")
-                                .font(.system(size: 42, weight: .bold))
-                                .foregroundColor(scoreColor())
+                                .font(.system(size: 48, weight: .heavy))
+                                .foregroundColor(.white)
+                                .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 1)
                             
                             Text("Nutrition Score")
-                                .font(.system(size: 14, weight: .medium))
-                                .foregroundColor(.secondary)
+                                .font(.system(size: 13, weight: .semibold))
+                                .foregroundColor(.white.opacity(0.9))
                         }
-                        .padding()
+                        .frame(width: 120, height: 120)
                         .background(
                             Circle()
-                                .fill(scoreColor().opacity(0.1))
+                                .fill(
+                                    RadialGradient(
+                                        gradient: Gradient(colors: [
+                                            scoreColor().opacity(0.8),
+                                            scoreColor()
+                                        ]),
+                                        center: .topLeading,
+                                        startRadius: 5,
+                                        endRadius: 60
+                                    )
+                                )
                                 .overlay(
                                     Circle()
-                                        .stroke(scoreColor(), lineWidth: 2)
+                                        .stroke(
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [
+                                                    scoreColor().opacity(0.6),
+                                                    scoreColor()
+                                                ]),
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            ),
+                                            lineWidth: 3
+                                        )
                                 )
+                                .shadow(color: scoreColor().opacity(0.4), radius: 8, x: 0, y: 4)
                         )
                     }
                     .padding(.horizontal, 20)
@@ -103,51 +125,51 @@ struct CompactMealResultsView: View {
                     .padding(.horizontal, 20)
                     
                     // Ingredients - Compact display
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 10) {
                         HStack {
                             Image(systemName: "list.bullet")
-                                .font(.system(size: 16))
+                                .font(.system(size: 18))
                                 .foregroundColor(Color("NumaPurple"))
                             Text("Ingredients")
-                                .font(.system(size: 16, weight: .semibold))
+                                .font(.system(size: 18, weight: .semibold))
                             Spacer()
                         }
                         
                         // Ingredients as comma-separated text to save space
                         Text(analysis.ingredients.prefix(6).joined(separator: ", "))
-                            .font(.system(size: 14))
+                            .font(.system(size: 16))
                             .foregroundColor(.secondary)
                             .lineLimit(2)
                             .multilineTextAlignment(.leading)
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 14)
                     .background(
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 12)
                             .fill(Color(.systemGray6))
                     )
                     .padding(.horizontal, 20)
                     
                     // Personalized Tip
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 10) {
                         HStack {
                             Image(systemName: "lightbulb.fill")
-                                .font(.system(size: 16))
+                                .font(.system(size: 18))
                                 .foregroundColor(.yellow)
                             Text("Tip for You")
-                                .font(.system(size: 16, weight: .semibold))
+                                .font(.system(size: 18, weight: .semibold))
                         }
                         
                         Text(getPersonalizedTip())
-                            .font(.system(size: 14))
+                            .font(.system(size: 16))
                             .foregroundColor(.secondary)
                             .lineLimit(2)
                             .multilineTextAlignment(.leading)
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 14)
                     .background(
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 12)
                             .fill(Color.yellow.opacity(0.1))
                     )
                     .padding(.horizontal, 20)
@@ -160,20 +182,21 @@ struct CompactMealResultsView: View {
                             if isSaving {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                    .scaleEffect(0.9)
+                                    .scaleEffect(1.0)
                             }
                             
                             Image(systemName: "bookmark.fill")
-                                .font(.system(size: 18))
+                                .font(.system(size: 20))
                             Text(isSaving ? "Saving..." : "Save Meal")
-                                .font(.system(size: 18, weight: .semibold))
+                                .font(.system(size: 20, weight: .semibold))
                         }
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 18)
+                        .padding(.vertical, 20)
                         .background(
-                            RoundedRectangle(cornerRadius: 14)
+                            RoundedRectangle(cornerRadius: 16)
                                 .fill(isSaving ? Color.gray : Color("NumaPurple"))
+                                .shadow(color: isSaving ? .clear : Color("NumaPurple").opacity(0.3), radius: 4, x: 0, y: 2)
                         )
                     }
                     .disabled(isSaving)
@@ -292,24 +315,24 @@ struct MacroCompactCard: View {
     let geometry: GeometryProxy
     
     var body: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 6) {
             Text(value)
-                .font(.system(size: 18, weight: .bold))
+                .font(.system(size: 20, weight: .bold))
                 .foregroundColor(color)
                 .minimumScaleFactor(0.8)
             
             Text(title)
-                .font(.system(size: 12, weight: .medium))
+                .font(.system(size: 14, weight: .medium))
                 .foregroundColor(.secondary)
                 .minimumScaleFactor(0.8)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 10)
+        .padding(.vertical, 12)
         .background(
-            RoundedRectangle(cornerRadius: 8)
+            RoundedRectangle(cornerRadius: 10)
                 .fill(color.opacity(0.1))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 8)
+                    RoundedRectangle(cornerRadius: 10)
                         .stroke(color.opacity(0.3), lineWidth: 1)
                 )
         )
