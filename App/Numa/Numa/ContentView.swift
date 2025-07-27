@@ -294,9 +294,6 @@ struct ContentView: View {
         }
     }
 }
-}
-
-}
 
 // MARK: - Supporting Components
 
