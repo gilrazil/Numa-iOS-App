@@ -270,6 +270,110 @@ class UserService: ObservableObject {
         return (missingFields.isEmpty && user.onboardingComplete, missingFields)
     }
     
+    // MARK: - Meal Data Management
+    
+    /// Saves meal analysis data to Firebase Firestore
+    func saveMealAnalysis(_ analysis: MealAnalysis, completion: @escaping (Bool) -> Void) {
+        guard let user = currentUser else {
+            print("❌ No user available for saving meal analysis")
+            completion(false)
+            return
+        }
+        
+        print("💾 Saving meal analysis to Firebase...")
+        
+        // Create meal document reference
+        let mealsCollection = db.collection(collectionName).document(user.id).collection("meals")
+        let mealDocument = mealsCollection.document(analysis.id)
+        
+        do {
+            // Convert MealAnalysis to dictionary for Firebase
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            
+            let analysisData = try encoder.encode(analysis)
+            guard let analysisDict = try JSONSerialization.jsonObject(with: analysisData) as? [String: Any] else {
+                print("❌ Failed to convert meal analysis to dictionary")
+                completion(false)
+                return
+            }
+            
+            // Save to Firestore
+            mealDocument.setData(analysisDict) { error in
+                if let error = error {
+                    print("❌ Failed to save meal analysis: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("✅ Meal analysis saved successfully: \(analysis.id)")
+                    completion(true)
+                }
+            }
+            
+        } catch {
+            print("❌ Failed to encode meal analysis: \(error.localizedDescription)")
+            completion(false)
+        }
+    }
+    
+    /// Retrieves all meal analyses for the current user
+    func getUserMeals(completion: @escaping (Result<[MealAnalysis], Error>) -> Void) {
+        guard let user = currentUser else {
+            completion(.failure(NSError(domain: "UserService", code: 404, userInfo: [NSLocalizedDescriptionKey: "No user available"])))
+            return
+        }
+        
+        let mealsCollection = db.collection(collectionName).document(user.id).collection("meals")
+        
+        mealsCollection.order(by: "timestamp", descending: true).getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                completion(.success([]))
+                return
+            }
+            
+            var meals: [MealAnalysis] = []
+            
+            for document in documents {
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: document.data())
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
+                    let meal = try decoder.decode(MealAnalysis.self, from: data)
+                    meals.append(meal)
+                } catch {
+                    print("⚠️ Failed to decode meal document \(document.documentID): \(error)")
+                    continue
+                }
+            }
+            
+            completion(.success(meals))
+        }
+    }
+    
+    /// Deletes a specific meal analysis
+    func deleteMealAnalysis(_ analysisId: String, completion: @escaping (Bool) -> Void) {
+        guard let user = currentUser else {
+            completion(false)
+            return
+        }
+        
+        let mealDocument = db.collection(collectionName).document(user.id).collection("meals").document(analysisId)
+        
+        mealDocument.delete { error in
+            if let error = error {
+                print("❌ Failed to delete meal analysis: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("✅ Meal analysis deleted successfully: \(analysisId)")
+                completion(true)
+            }
+        }
+    }
+    
     // MARK: - Debug Helper
     func printUserData() {
         guard let user = currentUser else {

@@ -95,4 +95,40 @@
 "camera_permission_message" = "Numa needs access to your camera to take photos of your meals. Please enable camera access in Settings.";
 "photo_library_permission_message" = "Numa needs access to your photo library to select meal photos. Please enable photo access in Settings.";
 "open_settings" = "Open Settings";
-"cancel_button" = "Cancel"; 
+"cancel_button" = "Cancel";
+
+// Meal Analysis - UI States
+"start_analysis_button" = "Start Analysis";
+"analyzing_meal" = "Analyzing Meal...";
+"analyzing_your_meal" = "Analyzing Your Meal";
+"this_may_take_moment" = "This may take a moment...";
+"tap_to_analyze" = "Tap to start analyzing your meal";
+"analysis_complete" = "Analysis Complete";
+"confidence_level" = "Confidence Level";
+"analysis_failed" = "Analysis Failed";
+"tap_to_retry" = "Tap to retry";
+"try_again_button" = "Try Again";
+"save_meal_button" = "Save Meal";
+"saving_meal" = "Saving...";
+
+// Nutritional Information
+"estimated_calories" = "Estimated Calories";
+"cal" = "cal";
+"protein" = "Protein";
+"carbs" = "Carbs";
+"fat" = "Fat";
+"grams" = "g";
+"ingredients" = "Ingredients";
+"ai_analysis" = "AI Analysis";
+
+// Analysis Error Messages
+"analysis_error_no_internet" = "No internet connection. Please check your network and try again.";
+"analysis_error_api_key" = "API configuration error. Please contact support.";
+"analysis_error_image_processing" = "Failed to process the image. Please try with a different photo.";
+"analysis_error_api_request" = "Analysis service is temporarily unavailable";
+"analysis_error_invalid_response" = "Received invalid response from analysis service.";
+"analysis_error_no_food" = "No food detected in the image. Please try with a clearer food photo.";
+"analysis_error_image_too_large" = "Image is too large. Please try with a smaller photo.";
+"analysis_error_timeout" = "Analysis timed out. Please try again.";
+"analysis_error_rate_limit" = "Too many requests. Please wait a moment and try again.";
+"analysis_error_unknown" = "An unexpected error occurred"; 

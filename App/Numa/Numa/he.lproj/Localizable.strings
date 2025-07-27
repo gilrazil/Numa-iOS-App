@@ -95,4 +95,40 @@
 "camera_permission_message" = "נומה זקוקה לגישה למצלמה כדי לצלם את הארוחות שלכם. אנא אפשרו גישה למצלמה בהגדרות.";
 "photo_library_permission_message" = "נומה זקוקה לגישה לגלריית התמונות כדי לבחור תמונות ארוחות. אנא אפשרו גישה לתמונות בהגדרות.";
 "open_settings" = "פתח הגדרות";
-"cancel_button" = "ביטול"; 
+"cancel_button" = "ביטול";
+
+// Meal Analysis - UI States
+"start_analysis_button" = "התחל ניתוח";
+"analyzing_meal" = "מנתח ארוחה...";
+"analyzing_your_meal" = "מנתח את הארוחה שלכם";
+"this_may_take_moment" = "זה עלול לקחת רגע...";
+"tap_to_analyze" = "לחצו כדי להתחיל לנתח את הארוחה";
+"analysis_complete" = "הניתוח הושלם";
+"confidence_level" = "רמת ביטחון";
+"analysis_failed" = "הניתוח נכשל";
+"tap_to_retry" = "לחצו לניסיון נוסף";
+"try_again_button" = "נסו שוב";
+"save_meal_button" = "שמור ארוחה";
+"saving_meal" = "שומר...";
+
+// Nutritional Information
+"estimated_calories" = "קלוריות משוערות";
+"cal" = "קלוריות";
+"protein" = "חלבון";
+"carbs" = "פחמימות";
+"fat" = "שומן";
+"grams" = "גרם";
+"ingredients" = "רכיבים";
+"ai_analysis" = "ניתוח בינה מלאכותית";
+
+// Analysis Error Messages
+"analysis_error_no_internet" = "אין חיבור לאינטרנט. אנא בדקו את הרשת שלכם ונסו שוב.";
+"analysis_error_api_key" = "שגיאת הגדרת API. אנא פנו לתמיכה.";
+"analysis_error_image_processing" = "נכשל בעיבוד התמונה. אנא נסו עם תמונה אחרת.";
+"analysis_error_api_request" = "שירות הניתוח אינו זמין זמנית";
+"analysis_error_invalid_response" = "התקבלה תגובה לא חוקית משירות הניתוח.";
+"analysis_error_no_food" = "לא זוהה אוכל בתמונה. אנא נסו עם תמונת אוכל ברורה יותר.";
+"analysis_error_image_too_large" = "התמונה גדולה מדי. אנא נסו עם תמונה קטנה יותר.";
+"analysis_error_timeout" = "הניתוח נגב. אנא נסו שוב.";
+"analysis_error_rate_limit" = "יותר מדי בקשות. אנא חכו רגע ונסו שוב.";
+"analysis_error_unknown" = "אירעה שגיאה לא צפויה"; 
