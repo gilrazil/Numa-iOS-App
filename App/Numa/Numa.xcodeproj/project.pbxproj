@@ -437,6 +437,8 @@
 				DEVELOPMENT_TEAM = G769PB6U6A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Numa needs access to your camera to take photos of your meals for nutritional analysis.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Numa needs access to your photo library to select meal photos for nutritional analysis.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -465,6 +467,8 @@
 				DEVELOPMENT_TEAM = G769PB6U6A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Numa needs access to your camera to take photos of your meals for nutritional analysis.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Numa needs access to your photo library to select meal photos for nutritional analysis.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

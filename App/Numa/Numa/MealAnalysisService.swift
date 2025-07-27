@@ -181,16 +181,32 @@ class MealAnalysisService: ObservableObject {
     // MARK: - Private Methods
     
     private func getOpenAIAPIKey() -> String? {
-        // First, try to get from Info.plist (for development)
-        if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
-           let plist = NSDictionary(contentsOfFile: path),
-           let apiKey = plist["OPENAI_API_KEY"] as? String,
+        print("🔍 Looking for OpenAI API key...")
+        
+        // Try to get from environment variable first
+        if let apiKey = ProcessInfo.processInfo.environment["OPENAI_API_KEY"],
            !apiKey.isEmpty {
+            print("✅ Found API key in environment variable")
             return apiKey
         }
         
-        // For production, you might want to get from Keychain or environment
-        // This is a placeholder for now
+        // Try to get from config file
+        if let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+           let config = NSDictionary(contentsOfFile: path),
+           let apiKey = config["OPENAI_API_KEY"] as? String,
+           !apiKey.isEmpty {
+            print("✅ Found API key in Config.plist")
+            return apiKey
+        }
+        
+        // Try to get from Bundle info dictionary (from build settings)
+        if let apiKey = Bundle.main.object(forInfoDictionaryKey: "OPENAI_API_KEY") as? String,
+           !apiKey.isEmpty {
+            print("✅ Found API key in Bundle info dictionary")
+            return apiKey
+        }
+        
+        print("❌ No API key found. Please set OPENAI_API_KEY environment variable or add to Config.plist")
         return nil
     }
     
@@ -246,7 +262,7 @@ class MealAnalysisService: ObservableObject {
         """
         
         let openAIRequest = OpenAIRequest(
-            model: "gpt-4-vision-preview",
+            model: "gpt-4o",
             messages: [
                 OpenAIRequest.Message(
                     role: "user",

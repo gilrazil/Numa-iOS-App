@@ -29,6 +29,9 @@ fastlane/test_output
 # Firebase
 GoogleService-Info.plist
 
+# API Keys and Configuration
+App/Numa/Numa/Config.plist
+
 # iOS
 *.dSYM.zip
 *.ipa
